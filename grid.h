@@ -1,5 +1,5 @@
 #ifndef GRID_h
-    #define GRID_T 
+    #define GRID_T      /*! To prevent circular inclusion */
     
         /*! @brief Structure to store the grid information */
         typedef struct {
@@ -14,6 +14,6 @@
         /*! @brief Function to display a grid */
         void display_grid(Grid* Grid, int person);      
         /*! @brief Function to get the color of a matrix character */
-        int color_switch(int nb);        
+        int color_switch(int nb);
 
 #endif
