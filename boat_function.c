@@ -33,11 +33,11 @@ Boat create_boat() {
         }
 
         // Size check
-        if (size < 0 || size > S_GRID) {
+        if (size < 1 || size > S_GRID) {
             printf("The boat's size isn't correct. Please try again.\n");
             sleep(1);
         }
-    } while(size < 0 || size > S_GRID);
+    } while(size < 1 || size > S_GRID);
     
     boat.size = size;                                       // We save the boat's size
     
