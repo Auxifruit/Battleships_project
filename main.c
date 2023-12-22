@@ -2,31 +2,55 @@
 
 int main() {
     Game* match = NULL;
-    printf("HELLO INITIAL\n");
-    match = init_game();
     int end = 0;
-    
-    printf("\033[0;32mYour grid :\033[0;37m\n");
+
+    //welcome();
+
+
+    match = init_game();
+
+    match = create_navy(match);
+
+    match = place_boat_player(match);
+    match = place_boat_computer(match);
+
+
+    printf("\nHere's your final grid :\n");
     display_grid(match->player_grid, 1);
+    sleep(1);
 
-    // printf("\n\033[0;35mComputer's grid :\033[0;37m\n");
-    // display_grid(match->computer_grid, 0);
-
-    for(int i = 0; i < N_BOAT; i++) {
-        match->player_boat[i] = create_boat();
-        match->computer_boat[i] = match->player_boat[i];
-    }
-
-    match = place_boat(match);
+    printf("\nNow, you can destroy boats !\n");
+    sleep(1);
 
     do {
-        match->player_grid = shoot(match->player_grid);
-        printf("\033[0;32mYour grid :\033[0;37m\n");
-        display_grid(match->player_grid, 1);
-        end = verif_winner(match->player_grid);
-    } while(end == 0);
+        printf("\nIt's your time to shoot !\n");
+        sleep(1);
 
-    printf("HELLO FINAL\n");
+        boat_remaining(match);
+
+        display_grid(match->computer_grid, 0);
+        match->computer_grid = player_shooting(match->computer_grid);
+        display_grid(match->computer_grid, 0);
+
+        printf("\nBe carefull, the computer is shooting !\n");
+        sleep(1);
+        
+        match->player_grid = computer_shooting(match->player_grid);
+        display_grid(match->player_grid, 1);
+        sleep(1);
+
+        end = verif_winner(match->player_grid, 1);
+        end = verif_winner(match->computer_grid, 0);
+    } while(end == 0);
+    
+    if(end == 1) {
+        printf("\nYou lost, better luck next time !\n");
+    }
+    else {
+        printf("\nYou won, you're the best commander !\n");
+    }
+    
+    printf("\nTHANK YOU FOR PLAYING !\n");
     
     return 0;
 }
