@@ -2,10 +2,13 @@
 
 /*! @brief Function to initialize the boats */
 Boat* init_boat() {
-    Boat* boats = NULL;                                 // Locals
+    // Locals
+    Boat* boats = NULL;
 
+    // Allocation memory for the boats
     boats = malloc(sizeof(Boat) * N_BOAT);
-    if(boats == NULL) {                                  // Allocation check 
+    // Allocation check 
+    if(boats == NULL) {
         printf("Allocation error (init_grid).\n");
         exit(ALLOCATION_ERROR);
     }
@@ -15,20 +18,28 @@ Boat* init_boat() {
 
 /*! @brief Function to place boats*/
 Boat create_boat() {
-    Boat boat;                                          // Locals
+    // Locals
+    Boat boat;
     int size;
 
-    do {                                                // For each boat we get its size
-        printf("Enter the boat's size between 1 and %d : ", S_GRID);
-        if(scanf("%d", &size) != 1) {                   // Scanf check 
+    // For each boat we get its size
+    do {
+        printf("\nEnter the boat's \033[0;35msize\033[0;37m (between \033[0;35m1\033[0;37m and \033[0;35m%d\033[0;37m) : ", S_GRID);
+        
+        // Scanf check 
+        if(scanf("%d", &size) != 1) {
             printf("Scanf error (create_boat).\n");
             exit(SCANF_ERROR);
         }
+
+        // Size check
         if (size < 0 || size > S_GRID) {
             printf("The boat's size isn't correct. Please try again.\n");
+            sleep(1);
         }
     } while(size < 0 || size > S_GRID);
-    boat.size = size;
+    
+    boat.size = size;                                       // We save the boat's size
     
     return boat;
 }
