@@ -89,6 +89,7 @@ void display_grid(Grid* grid, int person) {
                     printf("\033[0;%dm%c \033[0;37m", color_switch(grid->matrix[row][col]), grid->matrix[row][col]);
                 }
             }
+            printf("\n");
         }
     }
 }
@@ -115,109 +116,8 @@ int color_switch(int nb) {
     }
 }
 
-/*! @brief Function to let the player shoot a cell */
-Grid* player_shooting(Grid* grid) {
-    // Argument check
-    if(grid == NULL) {
-        printf("Argument error (shoot).\n");
-        exit(ARGUMENT_ERROR);
-    }
-
-    // Locals
-    int row;
-    int col;
-
-    // The player input the cell he want to shoot
-    do {
-        printf("\nEnter the \033[0;31mrow\033[0;37m where you want to shoot (between \033[0;31m1\033[0;37m and \033[0;31m10\033[0;37m) : ");
-
-        // Scanf check 
-        if(scanf("%d", &row) != 1) {
-            printf("Error scanf (shoot).\n");
-            exit(SCANF_ERROR);
-        }
-
-        printf("\nEnter the \033[0;36mcolumn\033[0;37m where you want shoot (between \033[0;36m1\033[0;37m and \033[0;36m10\033[0;37m) : ");
-
-        // Scanf check 
-        if(scanf("%d", &col) != 1) {
-            printf("Error scanf (shoot).\n");
-            exit(SCANF_ERROR);
-        }
-
-        // If the cell we want to shoot is outside the grid
-        if((row < 0 || row > 10) || (col < 0 || col > 10)) {
-            printf("You input a wrong coordinates. Please try again.\n\n");
-            sleep(1);
-        }
-        // If a cell was already shot
-        else if(grid->matrix[row - 1][col - 1] != WATER && grid->matrix[row - 1][col - 1] != BOAT) {
-            printf("The cell you want to shoot was already shot. Please try again.\n\n");
-            sleep(1);
-        }
-        
-    } while ((row < 0 || row > 10) || (col < 0 || col > 10) || (grid->matrix[row][col] != WATER && grid->matrix[row][col] != BOAT));    // Verification if the cell can be shoot
-
-    row -= 1;                                           // We get the true value of the row
-    col -= 1;                                           // We get the true value of the column
-
-    // Check what type of cell we touched
-    if(grid->matrix[row][col] == WATER) {
-        grid->matrix[row][col] = WATER_SHOT;            // If it's a WATER cell
-    }                 
-    else {
-        grid->matrix[row][col] = WRECK;                 // If it's a BOAT cell
-    }
-    
-    return grid;
-}
-
-/*! @brief Function to let the computer shoot a cell */
-Grid* computer_shooting(Grid* grid) {
-    // Argument check
-    if(grid == NULL) {
-        printf("Argument error (shoot).\n");
-        exit(ARGUMENT_ERROR);
-    }
-
-    // Locals
-    int row;
-    int col;
-    int try = 0;
-
-    srand(time(NULL));
-
-    // We choose a random cell
-    do {
-        row = rand() % S_GRID;
-        col = rand() % S_GRID;
-        try++;
-
-    } while((grid->matrix[row][col] != WATER && grid->matrix[row][col] != BOAT) && try <= 30); // Check if we can shoot it
-
-    // If the computer makes to much try, we'll search cell by cell
-    if(try >= 30) {
-        row = 0;
-        col = 0;
-        while(grid->matrix[row][col] != WATER && grid->matrix[row][col] != BOAT) {
-            row++;
-            col++;
-        }
-    }
-
-    // Check what type of cell we touched
-    if(grid->matrix[row][col] == WATER) {
-        grid->matrix[row][col] = WATER_SHOT;            // If it's a WATER cell
-    }                 
-    else {
-        grid->matrix[row][col] = WRECK;                 // If it's a BOAT cell
-    }
-    
-    return grid;
-}
-
 /*! @brief Function to check if all the boat are destroyed in a grid */
-int verif_winner(Grid* grid) {
+int verif_winner(Grid* grid, int person) {
     // Argument check 
     if(grid == NULL) {
         printf("Argument error (verif_winner).\n");
@@ -232,6 +132,11 @@ int verif_winner(Grid* grid) {
             }
         }
     }
-
-    return 1;                                           // We din't find a single boat, the game can end
+    // We din't find a single boat, the game can end
+    if(person == 1) {
+        return 1;                                       // The player has lost                                   
+    }
+    else {
+        return 2;                                       // The computer has lost
+    }
 }
