@@ -3,6 +3,8 @@
     
         #include <stdio.h>
         #include <stdlib.h>
+        #include <time.h>
+        #include <unistd.h>
 
         #include "boat.h"                   /*! Get the boats' function */
         #include "grid.h"                   /*! Get the grids' function */
@@ -37,15 +39,25 @@
             Boat* computer_boat;            
         } Game ;
 
+        /*! @brief Function to print a welcome message */
+        void welcome();
+
         /*! @brief Function to initialize the game */
         Game* init_game();
-        /*! @brief Function to shoot on a cell */
-        Grid* shoot(Grid* grid);
-        /*! @brief Function to place boats in the grid */
-        Game* place_boat(Game* game);
+
+        /*! @brief Function to creat a boat armada */
+        Game* create_armada(Game* game);
+
+        /*! @brief Function to place the player's boats in his grid */
+        Game* place_boat_player(Game* game);
+
+        /*! @brief Function to place the computer's boats in its grid */
+        Game* place_boat_computer(Game* game);
+
+        /*! @brief Put the boat in a grid */
+        Grid* put_boat(Boat boat, Grid* grid);
+
         /*! @brief Function to check is we can place the boat */
         int verif_position(int row, int col, int orientation, Boat boat, Grid* grid);
-        /*! @brief Function to chech if all the boat are destroyed in a grid */
-        int verif_winner(Grid* grid);
 
 #endif
