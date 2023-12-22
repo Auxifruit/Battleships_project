@@ -4,7 +4,7 @@
         /*! @brief Structure to store the boat information */
         typedef struct {
             /*! Boat's starting position */
-            int** position;
+            int* position;
             /*! Boat's size */
             int size;
             /*! Boat's orientation (V for vertical and H for Horizontal) */
@@ -13,6 +13,7 @@
 
         /*! @brief Function to initialize the boats */
         Boat* init_boat();
+        
         /*! @brief Function to create a boat */
         Boat create_boat();
         
