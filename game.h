@@ -9,7 +9,7 @@
         #include "boat.h"                   /*! Get the boats' function */
         #include "grid.h"                   /*! Get the grids' function */
 
-        #define N_BOAT 5                    /*! Number of boat for each person */
+        #define N_BOAT 2                    /*! Number of boat for each person */
         #define S_GRID 10                   /*! Number for the size of the grid */
         #define ALLOCATION_ERROR 1          /*! Number for allocation error */
         #define SCANF_ERROR 2               /*! Number for scanf error */
@@ -45,8 +45,8 @@
         /*! @brief Function to initialize the game */
         Game* init_game();
 
-        /*! @brief Function to creat a boat armada */
-        Game* create_armada(Game* game);
+        /*! @brief Function to create a boat navy */
+        Game* create_navy(Game* game);
 
         /*! @brief Function to place the player's boats in his grid */
         Game* place_boat_player(Game* game);
@@ -59,5 +59,17 @@
 
         /*! @brief Function to check is we can place the boat */
         int verif_position(int row, int col, int orientation, Boat boat, Grid* grid);
+
+        /*! @brief Function to let the player shoot a cell */
+        Grid* player_shooting(Grid* grid);
+
+        /*! @brief Function to let the computer shoot a cell */
+        Grid* computer_shooting(Grid* grid);
+
+        /*! @brief Function to show how boats remains */
+        void boat_remaining(Game* game);
+
+        /*! @brief Return 0 if the boat is destroyed */
+        int boat_alive(Boat boat, Grid* grid);
 
 #endif
