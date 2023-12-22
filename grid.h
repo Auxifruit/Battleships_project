@@ -17,14 +17,8 @@
 
         /*! @brief Function to get the color of a matrix character */
         int color_switch(int nb);
-        
-        /*! @brief Function to let the player shoot a cell */
-        Grid* player_shooting(Grid* grid);
-
-        /*! @brief Function to let the computer shoot a cell */
-        Grid* computer_shooting(Grid* grid);
 
         /*! @brief Function to check if all the boat are destroyed in a grid */
-        int verif_winner(Grid* grid);
+        int verif_winner(Grid* grid, int person);
 
 #endif
