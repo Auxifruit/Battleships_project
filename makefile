@@ -1,14 +1,13 @@
 CC = gcc
 SRC = $(wildcard *.c)
 OBJ = $(SRC:.c=.o)
-INC = fonctions.h
 
-all : exec
+all : battleships
 
-%.o : %.c $(INC)
+%.o : %.c
 	$(CC) -c $< -o $@
 
-exec : $(OBJ)
+battleships : $(OBJ)
 	$(CC) $^ -o $@
 
 debug:
@@ -17,4 +16,4 @@ debug:
 
 clean :
 	rm -f *.o
-	rm -f exec
+	rm -f battleships
