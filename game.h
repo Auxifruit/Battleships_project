@@ -11,7 +11,7 @@
         #include "boat.h"                   /*! Get the boats' function */
         #include "grid.h"                   /*! Get the grids' function */
 
-        #define N_BOAT 2                    /*! Number of boat for each person */
+        #define N_BOAT 5                    /*! Number of boat for each person */
         #define S_GRID 10                   /*! Number the grid's size */
         #define ALLOCATION_ERROR 1          /*! Number for allocation error */
         #define SCANF_ERROR 2               /*! Number for scanf error */
