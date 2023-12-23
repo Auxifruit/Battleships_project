@@ -30,9 +30,9 @@ int main() {
         boat_remaining(match);                                              // We show the remaining boats
 
         // The player shoot
-        display_grid(match->computer_grid, 1);
+        display_grid(match->computer_grid, 0);
         match->computer_grid = player_shooting(match->computer_grid);
-        display_grid(match->computer_grid, 1);
+        display_grid(match->computer_grid, 0);
         sleep(2);
 
         end = verif_winner(match->computer_grid, 0);                        // We verify the player won
