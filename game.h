@@ -1,6 +1,8 @@
 #ifndef NAVALE_h
     #define NAVALE_h        /*! To prevent circular inclusion */
-    
+
+        /*! @mainpage There's the doxygen documentation for my Battleships game in C. You'll find all the file, their function and what they do. */
+
         #include <stdio.h>
         #include <stdlib.h>
         #include <time.h>
@@ -10,7 +12,7 @@
         #include "grid.h"                   /*! Get the grids' function */
 
         #define N_BOAT 2                    /*! Number of boat for each person */
-        #define S_GRID 10                   /*! Number for the size of the grid */
+        #define S_GRID 10                   /*! Number the grid's size */
         #define ALLOCATION_ERROR 1          /*! Number for allocation error */
         #define SCANF_ERROR 2               /*! Number for scanf error */
         #define ARGUMENT_ERROR 3            /*! Number for scanf error */
@@ -66,10 +68,13 @@
         /*! @brief Function to let the computer shoot a cell */
         Grid* computer_shooting(Grid* grid);
 
-        /*! @brief Function to show how boats remains */
+        /*! @brief Function to show how boats remain */
         void boat_remaining(Game* game);
 
         /*! @brief Return 0 if the boat is destroyed */
         int boat_alive(Boat boat, Grid* grid);
+
+        /*! @brief Function to the free all the allocated memory */
+        void free_all(Game* game);
 
 #endif
