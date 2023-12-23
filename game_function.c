@@ -2,8 +2,6 @@
 
 /*! @brief Function to print a welcome message */
 void welcome() {
-    printf("HELLO INITIAL\n");
-
     printf("\033[0;34m  ____        _   _   _       _____ _     _           \n");
     printf(" |  _ \\      | | | | | |     / ____| |   (_)          \n");
     printf(" | |_) | __ _| |_| |_| | ___| (___ | |__  _ _ __  ___ \n");
@@ -26,6 +24,7 @@ void welcome() {
     printf("4. Boats can touch each other, so be carefull.\n");
     sleep(1);
     printf("5. Enjoy !\n");
+    sleep(1);
 }
 
 /*! @brief Function to initialize the game */
@@ -53,7 +52,7 @@ Game* init_game() {
 Game* create_navy(Game* game) {
     // Argument check
     if(game == NULL) {
-        printf("Argument error (place_boat_computer).\n");
+        printf("Argument error (create_navy).\n");
         exit(ARGUMENT_ERROR);
     }
 
@@ -175,6 +174,7 @@ Game* place_boat_player(Game* game) {
     return game;
 }
 
+/*! @brief Function to place the computer's boats in its grid */
 Game* place_boat_computer(Game* game) {    
     // Argument check
     if(game == NULL) {
@@ -229,24 +229,25 @@ Game* place_boat_computer(Game* game) {
         game->computer_boat[indice].position = malloc(sizeof(int) * 2);
         //Allocation check
         if(game->computer_boat[indice].position == NULL) {
-            printf("Allocation error (place_boat_player).\n");
+            printf("Allocation error (place_boat_computer).\n");
             exit(ALLOCATION_ERROR);
         }
 
         game->computer_boat[indice].position[0] = row;                      // We save the boat's row
         game->computer_boat[indice].position[1] = col;                      // We save the boat's column
 
-        game->computer_grid = put_boat(game->computer_boat[indice], game->computer_grid);
+        game->computer_grid = put_boat(game->computer_boat[indice], game->computer_grid);   // We place the boat in the computer's grid
 
     }
 
     return game;
 }
 
+/*! @brief Put the boat in a grid */
 Grid* put_boat(Boat boat, Grid* grid) {
     // Argument check 
     if((boat.position[0] < 0 || boat.position[0] > S_GRID) || (boat.position[1] < 0 || boat.position[1] > S_GRID) || (boat.orientation != 72 && boat.orientation != 86) || grid == NULL) {
-        printf("Argument error (verif_position).\n");
+        printf("Argument error (put_boat).\n");
         exit(ARGUMENT_ERROR);
     }
     
@@ -270,6 +271,7 @@ Grid* put_boat(Boat boat, Grid* grid) {
     return grid;
 }
 
+/*! @brief Function to check is we can place the boat */
 int verif_position(int row, int col, int orientation, Boat boat, Grid* grid) {
     // Argument check 
     if((row < 0 || row > S_GRID) || (col < 0 || col > S_GRID) || (orientation != 72 && orientation != 86) || grid == NULL) {
@@ -316,7 +318,7 @@ int verif_position(int row, int col, int orientation, Boat boat, Grid* grid) {
 Grid* player_shooting(Grid* grid) {
     // Argument check
     if(grid == NULL) {
-        printf("Argument error (shoot).\n");
+        printf("Argument error (player_shooting).\n");
         exit(ARGUMENT_ERROR);
     }
 
@@ -331,7 +333,7 @@ Grid* player_shooting(Grid* grid) {
 
             // Scanf check 
             if(scanf("%d", &row) != 1) {
-                printf("Scanf error (place_boat_player).\n");
+                printf("Scanf error (player_shooting).\n");
                 exit(SCANF_ERROR);
             }
             // Row check 
@@ -347,7 +349,7 @@ Grid* player_shooting(Grid* grid) {
 
             // Scanf check 
             if(scanf("%d", &col) != 1) {
-                printf("Scanf error (place_boat_player).\n");
+                printf("Scanf error (player_shooting).\n");
                 exit(SCANF_ERROR);
             }
 
@@ -373,12 +375,10 @@ Grid* player_shooting(Grid* grid) {
     // Check what type of cell we touched
     if(grid->matrix[row][col] == WATER) {
         printf("\nYou touched nothing, try again !\n");
-        sleep(2);
         grid->matrix[row][col] = WATER_SHOT;            // If it's a WATER cell
     }                 
     else {
         printf("\nYou touched a boat, keep it up !\n");
-        sleep(2);
         grid->matrix[row][col] = WRECK;                 // If it's a BOAT cell
     }
     
@@ -389,7 +389,7 @@ Grid* player_shooting(Grid* grid) {
 Grid* computer_shooting(Grid* grid) {
     // Argument check
     if(grid == NULL) {
-        printf("Argument error (shoot).\n");
+        printf("Argument error (computer_shooting).\n");
         exit(ARGUMENT_ERROR);
     }
 
@@ -421,40 +421,40 @@ Grid* computer_shooting(Grid* grid) {
     // Check what type of cell we touched
     if(grid->matrix[row][col] == WATER) {
         printf("\nThe computer touched nothing, you're lucky !\n");
-        sleep(2);
         grid->matrix[row][col] = WATER_SHOT;            // If it's a WATER cell
     }                 
     else {
         printf("\nThe computer touched one of your boat, you need to counterattack !\n");
-        sleep(2);
         grid->matrix[row][col] = WRECK;                 // If it's a BOAT cell
     }
     
     return grid;
 }
 
+/*! @brief Function to show how many boats remain */
 void boat_remaining(Game* game) {
     // Argument check
     if(game == NULL) {
-        printf("Argument error (place_boat_computer).\n");
+        printf("Argument error (boat_remaining).\n");
         exit(ARGUMENT_ERROR);
     }
 
     // Locals
     int nb_boats = 0;
 
+    // We count how many boat are alive
     for(int i = 0; i < N_BOAT; i++) {
         nb_boats = nb_boats + boat_alive(game->computer_boat[i], game->computer_grid);
     }
 
-    printf("\nThere is %d boats to destroy.\n", nb_boats);
+    printf("\n\nYou destroyed \033[0;35m%d\033[0;37m boats. \033[0;35m%d\033[0;37m boats remain.\n", N_BOAT-nb_boats, nb_boats);
 }
 
-
+/*! @brief Return 0 if the boat is destroyed */
 int boat_alive(Boat boat, Grid* grid) {
     // Argument check 
     if((boat.position[0] < 0 || boat.position[0] > S_GRID) || (boat.position[1] < 0 || boat.position[1] > S_GRID) || (boat.orientation != 72 && boat.orientation != 86) || grid == NULL) {
-        printf("Argument error (verif_position).\n");
+        printf("Argument error (boat_alive).\n");
         exit(ARGUMENT_ERROR);
     }
     
@@ -462,20 +462,60 @@ int boat_alive(Boat boat, Grid* grid) {
     int row = boat.position[0];
     int col = boat.position[1];
 
+    // If the boat is honrizontale
     if(boat.orientation == 72) {
         for(int i = col; i < boat.size + col; i++) {
+            // We find one cell is not destroyed, the boat is still alive
             if(grid->matrix[row][i] == BOAT) {
+                printf("\nThe boat of size \033[0;32m%d\033[0;37m is still \033[0;32malive\033[0;37m.", boat.size);
                 return 1;
             }
         }
     }
+    // If the boat is verticale
     else {
         for(int j = row; j < boat.size + row; j++) {
+            // We find one cell is not destroyed, the boat is still alive
             if(grid->matrix[j][col] == BOAT) {
+                printf("\nThe boat of size \033[0;32m%d\033[0;37m is still \033[0;32malive\033[0;37m.", boat.size);
                 return 1;
             }
         }
     }
 
+    // All the cell are destroyed, the boat is destroy
+    printf("\nThe boat of size \033[0;31m%d\033[0;37m is \033[0;31mdestroyed\033[0;37m.", boat.size);    
     return 0;
+}
+
+void free_all(Game* game) {
+    // Argument check
+    if(game == NULL) {
+        printf("Argument error (free_all).\n");
+        exit(ARGUMENT_ERROR);
+    }
+
+    // We free the boat's position
+    for(int i = 0; i < N_BOAT; i++) {
+        free(game->player_boat[i].position);
+        free(game->computer_boat[i].position);
+    }
+
+    // We free the boats
+    free(game->player_boat);
+    free(game->computer_boat);
+
+    // We free the matrix's column
+    for(int j = 0; j < S_GRID; j++) {
+        free(game->player_grid->matrix[j]);
+        free(game->computer_grid->matrix[j]);
+    }
+
+    // We free the matrix's row
+    free(game->player_grid->matrix);
+    free(game->computer_grid->matrix);
+
+    // We free the grid
+    free(game->player_grid);
+    free(game->computer_grid);
 }
