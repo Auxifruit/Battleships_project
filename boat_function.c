@@ -9,7 +9,7 @@ Boat* init_boat() {
     boats = malloc(sizeof(Boat) * N_BOAT);
     // Allocation check 
     if(boats == NULL) {
-        printf("Allocation error (init_grid).\n");
+        printf("Allocation error (init_boat).\n");
         exit(ALLOCATION_ERROR);
     }
     
