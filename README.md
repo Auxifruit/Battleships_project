@@ -23,7 +23,7 @@ To summarize:
 2. Place them by choosing the row, column and orientation for each of your boat.
 3. Then destroy all the computer's boats before it destroys yours.
 
-Boats can touch each other, so don't hesitate to pull all over the place.
+Boats can touch each other, so don't hesitate to shoot everywhere.
 
 ## DOCUMENTATION
 
