@@ -21,7 +21,7 @@ You'll find it in the *StaticLibrary&exec* folder. The rules will be explained t
 To summarize:
 1. Create your boats.
 2. Place them by choosing the row, column and orientation for each of your boat.
-3. Then destroy all the computer's ships before it destroys yours.
+3. Then destroy all the computer's boats before it destroys yours.
 
 Boats can touch each other, so don't hesitate to pull all over the place.
 
