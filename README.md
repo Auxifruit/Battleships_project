@@ -31,7 +31,7 @@ You'll find all the information about the code by creating the doxygen documenta
 ```c
   $ doxygen doxyfile
 ```
-The *index.html* will be in the *html* folder in the *doxygen* folder.
+After generate it, the *index.html* file will be in the *html* folder in the *doxygen* folder.
 
 ## CREATOR
 
