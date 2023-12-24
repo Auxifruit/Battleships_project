@@ -1,23 +1,25 @@
-# PROJET BATAILLE NAVALE
+# BATTLESHIPS PROJECT
 
-## Table des matières
-1. [INFORMATIONS GÉNÉRALES](#informations-générales)
-2. [UTILISATION](#utilisation)
-3. [CRÉATEUR](#créateur)
+## Table of contents
+1. [GENERAL INFORMATIONS](#-general-informations)
+2. [HOW TO USE](#how-to-use)
+3. [CREATOR](#creator)
 
-## INFORMATIONS GÉNÉRALES
+## GENERAL INFORMATIONS
 
-Le but de ce projet est de réaliser un programme permettant de jouer à la bataille navale depuis le terminal.
+The goal of this project is to create a program that lets you play Battleship from your terminal.
 
-## UTILISATION
+## HOW TO USE
 
-Pour pouvoir jouer, lancer l'exécutable exec, les règles vous seront expliquées au lancement.
+To play, launch the executable exec. The rules will be explained to you on launch.
 
-Pour résumer:
-1. Créez vos bateaux.
-2. Placez les en choisissant la ligne, la colonne puis l'orientation de votre bateau.
-3. Détruisez ensuite tous les bateaux de l'ordianteur avant qu'il ne détruise les votres.
+To summarize:
+1. Create your boats.
+2. Place them by choosing the row, column and orientation for each of your boat.
+3. Then destroy all the computer's ships before it destroys yours.
 
-## CRÉATEUR
+Boats can touch each other, so don't hesitate to pull all over the place.
 
-Projet réalisé par Guillaume BARRÉ(aka Auxifruit) en ING1 GI2
+## CREATOR
+
+Project by Guillaume BARRÉ (aka Auxifruit) in ING1 GI2.
